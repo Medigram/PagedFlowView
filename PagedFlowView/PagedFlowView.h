@@ -81,6 +81,7 @@ typedef enum{
 - (CGSize)sizeForPageInFlowView:(PagedFlowView *)flowView;
 
 @optional
+- (void)willScrollToPage:(NSInteger)pageNumber inFlowView:(PagedFlowView*)flowView;
 - (void)didScrollToPage:(NSInteger)pageNumber inFlowView:(PagedFlowView *)flowView;
 
 @end

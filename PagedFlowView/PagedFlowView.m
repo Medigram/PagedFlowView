@@ -424,6 +424,26 @@
     [self refreshVisibleCellAppearance];
 }
 
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    NSInteger pageIndex;
+    
+    switch (orientation) {
+        case PagedFlowViewOrientationHorizontal:
+            pageIndex = floor(_scrollView.contentOffset.x / _pageSize.width);
+            break;
+        case PagedFlowViewOrientationVertical:
+            pageIndex = floor(_scrollView.contentOffset.y / _pageSize.height);
+            break;
+        default:
+            break;
+    }
+    
+    if ([_delegate respondsToSelector:@selector(willScrollToPage:inFlowView:)] && _currentPageIndex != pageIndex) {
+        [_delegate willScrollToPage:pageIndex inFlowView:self];
+    }
+}
+
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     //如果有PageControl，计算出当前页码，并对pageControl进行更新
